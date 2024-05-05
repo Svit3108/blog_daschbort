@@ -1,35 +1,21 @@
-// App.js
-import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import BlogPostList from './components/BlogPostList';
-import BlogPostForm from './components/BlogPostForm';
-import { useHistory } from 'react-router-dom';
-
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+// import Home from './Home';
+import PostForm from './PostForm';
+import PostList from './PostList';
 
 function App() {
-    const history = useHistory();
-  
-    // Hier kannst du die history-Instanz verwenden, z.B.:
-    // history.push('/route');
-  
-    return (
-      <Router></Router>
-      <div>
-        {/* Dein Code hier */}
-      </div>
-    );
-  
+  const [posts, setPosts] = useState([]);
+
   return (
     <Router>
-      <div>
-        <h1>My Blog</h1>
-        <Switch>
-          <Route path="/" exact component={BlogPostList} />
-          <Route path="/new" component={BlogPostForm} />
-        </Switch>
-      </div>
+      <Routes>
+        <Route path="/" element={<PostList posts={posts} setPosts={setPosts} />} />
+        <Route path="/create" element={<PostForm posts={posts} setPosts={setPosts} />} />
+        <Route path="/edit/:id" element={<PostForm posts={posts} setPosts={setPosts} />} />
+      </Routes>
     </Router>
   );
 }
-
+        
 export default App;
